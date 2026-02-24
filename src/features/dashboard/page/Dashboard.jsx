@@ -1,5 +1,5 @@
 import React from "react";
-import dashboardApi from "../api/dashboard.api";
+import dashboardApi from "../api/dashboard.api.js";
 import { useQuery } from "@tanstack/react-query";
 
 function Dashboard() {
@@ -9,6 +9,7 @@ function Dashboard() {
       const response = await dashboardApi();
       return response.data || [];
     } catch (error) {
+      console.log("Dashboard api fetch api error", error);
       throw error;
     }
   }
@@ -17,7 +18,7 @@ function Dashboard() {
   const { data: dashboardData, isLoading } = useQuery({
     queryKey: ["dashboard"],
     queryFn: fetchDashboard,
-    refetchInterval:5 * 1000 //Refetch in every 5 sec 
+    refetchInterval: 5 * 1000, //Refetch in every 5 sec
   });
   console.log("data", dashboardData);
   return (
@@ -28,7 +29,7 @@ function Dashboard() {
         Array.isArray(dashboardData) &&
         dashboardData?.map((ele, id) => {
           return (
-        <div key={id} style={{border:"1px solid red"}}>
+            <div key={id} style={{ border: "1px solid red" }}>
               <p>{ele.Ticket_ID ?? "NA"}</p>
               <p>{ele.Date_Created ?? "NA"}</p>
               <p>{ele.Customer_Name ?? "NA"}</p>
