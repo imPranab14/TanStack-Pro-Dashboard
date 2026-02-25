@@ -23,24 +23,92 @@ function Dashboard() {
   console.log("data", dashboardData);
   return (
     <>
-      <h4>Dashboard</h4>
+      <h1>Dashboard</h1>
       {isLoading && <h1>Loading...</h1>}
-      {!isLoading &&
-        Array.isArray(dashboardData) &&
-        dashboardData?.map((ele, id) => {
-          return (
-            <div key={id} style={{ border: "1px solid red" }}>
-              <p>{ele.Ticket_ID ?? "NA"}</p>
-              <p>{ele.Date_Created ?? "NA"}</p>
-              <p>{ele.Customer_Name ?? "NA"}</p>
-              <p>{ele.Agent_Name ?? "NA"}</p>
-              <p>{ele.CSAT_Score ?? "NA"}</p>
-              <p>{ele.Category ?? "NA"}</p>
-              <p>{ele.Priority ?? "NA"}</p>
-              <p>{ele.Status ?? "NA"}</p>
-            </div>
-          );
-        })}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {!isLoading &&
+          Array.isArray(dashboardData) &&
+          dashboardData?.map((ele, id) => {
+            return (
+              <div
+                key={id}
+                className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+              >
+                {/* Header */}
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-semibold text-gray-800">
+                    #{ele.Ticket_ID ?? "NA"}
+                  </h2>
+
+                  <span
+                    className={`px-3 py-1 text-xs font-semibold rounded-full capitalize
+        ${
+          ele.Status?.toLowerCase() === "open"
+            ? "bg-blue-100 text-blue-700"
+            : ele.Status?.toLowerCase() === "closed"
+              ? "bg-green-100 text-green-700"
+              : ele.Status?.toLowerCase() === "pending"
+                ? "bg-yellow-100 text-yellow-700"
+                : "bg-gray-100 text-gray-600"
+        }
+      `}
+                  >
+                    {ele.Status ?? "NA"}
+                  </span>
+                </div>
+
+                {/* Body */}
+                <div className="space-y-3 text-sm text-gray-700">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 font-medium">Customer</span>
+                    <span>{ele.Customer_Name ?? "NA"}</span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 font-medium">Agent</span>
+                    <span>{ele.Agent_Name ?? "NA"}</span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 font-medium">Created</span>
+                    <span>{ele.Date_Created ?? "NA"}</span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 font-medium">Category</span>
+                    <span>{ele.Category ?? "NA"}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500 font-medium">Priority</span>
+                    <span
+                      className={`px-2 py-1 text-xs font-semibold rounded-full capitalize
+          ${
+            ele.Priority?.toLowerCase() === "high"
+              ? "bg-red-100 text-red-700"
+              : ele.Priority?.toLowerCase() === "medium"
+                ? "bg-yellow-100 text-yellow-700"
+                : ele.Priority?.toLowerCase() === "low"
+                  ? "bg-sky-100 text-sky-700"
+                  : "bg-gray-100 text-gray-600"
+          }
+        `}
+                    >
+                      {ele.Priority ?? "NA"}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="text-gray-500 font-medium">CSAT</span>
+                    <span className="font-semibold text-yellow-500">
+                      ⭐ {ele.CSAT_Score ?? "NA"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </>
   );
 }
