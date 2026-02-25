@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserPage from "./features/user/page/UserPage.jsx";
 import Dashboard from "./features/dashboard/page/Dashboard.jsx";
+import SupabaseTable from "./features/supabase-table/page/SupabaseTable.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         />
         <Route path="/user" element={<UserPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/supabase-table" element={<SupabaseTable />} />
         <Route
           path="*"
           element={
