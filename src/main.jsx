@@ -10,9 +10,15 @@ const queryClient = new QueryClient();
 ///Register Service Worker
 //Browser does NOT automatically use your sw.js.
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js")
-    .then(() => console.log("SW Registered"));
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then(() => console.log("SW registered"))
+      .catch(console.error);
+  });
 }
+
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

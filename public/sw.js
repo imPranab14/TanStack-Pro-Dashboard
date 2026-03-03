@@ -1,7 +1,9 @@
 self.addEventListener("push", (event) => {
+  console.log("Push event received");
+
   event.waitUntil(
-    self.registration.showNotification("Push Working 🎉", {
-      body: "Service Worker is correct",
+    self.registration.showNotification("Manual Push Test 🎉", {
+      body: "If you see this, SW works.",
       icon: "/logo192.png",
     })
   );
