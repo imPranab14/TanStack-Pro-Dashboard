@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import EnableNotificationsButton from "../components/EnableNotificationsButton";
 
 function Login() {
   useEffect(() => {
@@ -9,6 +10,7 @@ function Login() {
   return (
     <>
       <h1>Login.....</h1>
+      <EnableNotificationsButton/>
     </>
   );
 }
