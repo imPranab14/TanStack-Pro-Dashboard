@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 function Todo() {
   const [data, setData] = useState(null);
   const [todoList, setTodoList] = useState([]);
-
+  const [loader, setLoader] = useState(false);
   //Submit todo form
   async function handelSubmit(e) {
     e.preventDefault();
@@ -16,6 +16,9 @@ function Todo() {
       //Toast Notification
       if (response.status === 201) {
         toast.success("Task Added Successfully");
+        //Select TODO API
+        fetchTodoData();
+        setData(null);
       }
     } catch (error) {
       console.log("failed to insert", error);
@@ -25,12 +28,15 @@ function Todo() {
   //NOTE Select todo data
   async function fetchTodoData() {
     try {
+      setLoader(true);
       const response = await selectTodo();
       if (response.status === 200) {
         setTodoList(response.data);
       }
     } catch (error) {
       console.log("todo list api call", error);
+    } finally {
+      setLoader(false);
     }
   }
 
@@ -39,7 +45,6 @@ function Todo() {
     fetchTodoData();
   }, []);
 
-  console.log("todoList", todoList);
   return (
     <>
       <>
@@ -63,6 +68,15 @@ function Todo() {
               Add
             </button>
           </form>
+          {loader && <h1>Loading....</h1>}
+          {todoList?.map((ele, id) => {
+            return (
+              <div key={id}>
+                <p>{ele.task_name}</p>
+              </div>
+            );
+          })}
+          {todoList && todoList.length === 0 && <p>No data found</p>}
 
           <Toaster />
         </div>
