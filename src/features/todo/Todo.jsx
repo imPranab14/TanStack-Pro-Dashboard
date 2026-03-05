@@ -1,14 +1,26 @@
 import React, { useState } from "react";
+import { insertTodo } from "./api/todo.api";
 
 function Todo() {
   const [data, setData] = useState(null);
-  function handelSubmit(e) {
-    e.preventDefault()
-    console.log("Form_submit",e,data);
+  async function handelSubmit(e) {
+    e.preventDefault();
+   
+    //IMPORTANT Insert DB 
+    try {
+      const response= await insertTodo(data)
+      console.log("api_res",response);
+      // if(response.status === 201){
+
+      // }
+    } catch (error) {
+      console.log("failed to insert",error);
+      
+    }
   }
   return (
     <>
-      <h1>todo app</h1>
+      <h1>TODO Application</h1>
       {/* Todo Form */}
       <form onSubmit={handelSubmit}>
         <input
