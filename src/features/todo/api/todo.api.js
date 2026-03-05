@@ -8,4 +8,10 @@ async function insertTodo(data) {
   return response
 }
 
-export { insertTodo };
+//Select todo data
+async function selectTodo() {
+  const response = await supabase.from("todo").select("*")
+  return response
+}
+
+export { insertTodo,selectTodo };

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { insertTodo } from "./api/todo.api";
+import React, { useEffect, useState } from "react";
+import { insertTodo, selectTodo } from "./api/todo.api";
 import toast, { Toaster } from "react-hot-toast";
 
 function Todo() {
   const [data, setData] = useState(null);
+  const [todoList, setTodoList] = useState([]);
 
+  //Submit todo form
   async function handelSubmit(e) {
     e.preventDefault();
     //IMPORTANT Insert DB
@@ -19,6 +21,25 @@ function Todo() {
       console.log("failed to insert", error);
     }
   }
+
+  //NOTE Select todo data
+  async function fetchTodoData() {
+    try {
+      const response = await selectTodo();
+      if (response.status === 200) {
+        setTodoList(response.data);
+      }
+    } catch (error) {
+      console.log("todo list api call", error);
+    }
+  }
+
+  //Select todo
+  useEffect(() => {
+    fetchTodoData();
+  }, []);
+
+  console.log("todoList", todoList);
   return (
     <>
       <>
