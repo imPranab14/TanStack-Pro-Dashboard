@@ -20,4 +20,17 @@ async function deleteTodo(ele) {
   return response;
 }
 
-export { insertTodo, selectTodo, deleteTodo };
+
+//Update todo data
+async function updateTodo(id, task_name) {
+  const response = await supabase
+    .from("todo")
+    .update({
+      task_name: task_name,
+    })
+    .eq("id", id)
+    .select()
+  return response;
+}
+
+export { insertTodo, selectTodo, deleteTodo, updateTodo };
