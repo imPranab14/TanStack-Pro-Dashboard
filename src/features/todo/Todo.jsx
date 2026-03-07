@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { insertTodo, selectTodo } from "./api/todo.api";
+import { deleteTodo, insertTodo, selectTodo } from "./api/todo.api";
 import toast, { Toaster } from "react-hot-toast";
 
 function Todo() {
@@ -16,7 +16,7 @@ function Todo() {
       //Toast Notification
       if (response.status === 201) {
         toast.success("Task Added Successfully");
-        //Select TODO API
+        //Select TODO API Call
         fetchTodoData();
         setData(null);
       }
@@ -45,6 +45,13 @@ function Todo() {
     fetchTodoData();
   }, []);
 
+  //Handel Delete Tack
+  async function handelDelete(ele) {
+    console.log("Delete_ele_id", ele);
+    const response = await deleteTodo(ele);
+    console.log("delete_taskname_response", response);
+  }
+
   return (
     <>
       <>
@@ -71,8 +78,11 @@ function Todo() {
           {loader && <h1>Loading....</h1>}
           {todoList?.map((ele, id) => {
             return (
-              <div key={id}>
+              <div key={id} className="flex gap-2">
                 <p>{ele.task_name}</p>
+                {/* <p>{ele.id}</p> */}
+                <button>Edit</button>
+                <button onClick={() => handelDelete(ele.id)}>Delete</button>
               </div>
             );
           })}
