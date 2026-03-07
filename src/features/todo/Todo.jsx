@@ -18,7 +18,7 @@ function Todo() {
         toast.success("Task Added Successfully");
         //Select TODO API Call
         fetchTodoData();
-        setData(null);
+       // setData(null);
       }
     } catch (error) {
       console.log("failed to insert", error);
@@ -46,50 +46,87 @@ function Todo() {
   }, []);
 
   //Handel Delete Tack
-  async function handelDelete(ele) {
-    console.log("Delete_ele_id", ele);
-    const response = await deleteTodo(ele);
-    console.log("delete_taskname_response", response);
+  async function handelDelete(ele,task_name) {
+    try {
+      const response = await deleteTodo(ele);
+      if (response.status === 204) {
+        toast.error(`Delete Task ${task_name} Successfully`);
+        //Select TODO API Call
+        fetchTodoData();
+      }
+    } catch (error) {
+      console.log("delete task name api error", error);
+    }
   }
 
   return (
     <>
       <>
-        <div className="w-96">
-          <h1 className="text-xl font-bold text-center mb-6">
-            📝 TODO Application
-          </h1>
+        <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-xl shadow-xl border border-gray-100">
+  {/* Header */}
+  <h1 className="text-2xl font-extrabold text-center mb-8 text-gray-800 flex items-center justify-center gap-2">
+    <span>📝</span> TODO Application
+  </h1>
 
-          <form onSubmit={handelSubmit} className="flex gap-2">
-            <input
-              type="text"
-              placeholder="Enter some details..."
-              onChange={(e) => setData(e.target.value)}
-              className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+  {/* Input Form */}
+  <form onSubmit={handelSubmit} className="flex gap-2 mb-8">
+    <input
+      type="text"
+      placeholder="What needs to be done?"
+      onChange={(e) => setData(e.target.value)}
+      className="flex-1 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-gray-400 shadow-sm"
+    />
+    <button
+      type="submit"
+      className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-95 transition-all shadow-md shadow-blue-100"
+    >
+      Add
+    </button>
+  </form>
 
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-            >
-              Add
-            </button>
-          </form>
-          {loader && <h1>Loading....</h1>}
-          {todoList?.map((ele, id) => {
-            return (
-              <div key={id} className="flex gap-2">
-                <p>{ele.task_name}</p>
-                {/* <p>{ele.id}</p> */}
-                <button>Edit</button>
-                <button onClick={() => handelDelete(ele.id)}>Delete</button>
-              </div>
-            );
-          })}
-          {todoList && todoList.length === 0 && <p>No data found</p>}
+  {/* Loader */}
+  {loader && (
+    <div className="flex justify-center my-4">
+      <div className="animate-pulse text-blue-500 font-medium">Loading tasks...</div>
+    </div>
+  )}
 
-          <Toaster />
+  {/* Todo List */}
+  <div className="space-y-3">
+    {todoList?.map((ele, id) => (
+      <div 
+        key={id} 
+        className="group flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-200"
+      >
+        <div className="flex items-center gap-3">
+          <div className="h-2 w-2 rounded-full bg-blue-400"></div>
+          <p className="text-gray-700 font-medium">{ele.task_name}</p>
         </div>
+
+        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button className="text-sm font-medium text-blue-600 hover:bg-blue-100 px-3 py-1 rounded-lg transition">
+            Edit
+          </button>
+          <button 
+            onClick={() => handelDelete(ele.id, ele.task_name)}
+            className="text-sm font-medium text-red-600 hover:bg-red-100 px-3 py-1 rounded-lg transition"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* Empty State */}
+  {todoList && todoList.length === 0 && !loader && (
+    <div className="text-center py-10">
+      <p className="text-gray-400 italic">No tasks found. Relax or add one!</p>
+    </div>
+  )}
+
+  <Toaster />
+</div>
       </>
     </>
   );
