@@ -13,7 +13,7 @@ function Todo() {
   async function handelSubmit(e) {
     e.preventDefault();
     //If input field is blank
-    if (data.length >= 0) {
+    if (data.length == 0) {
      return toast.error("Input Data Blank");
     }
 
