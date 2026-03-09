@@ -14,24 +14,25 @@ function Todo() {
     e.preventDefault();
     //If input field is blank
     if (data.length == 0) {
-     return toast.error("Input Data Blank");
+      return toast.error("Input Data Blank");
     }
 
     //Update Section API Call
     if (updateData) {
-      await updateAPICall(data); //Update API Function Call
+      return await updateAPICall(data); //Update API Function Call
     }
+
+    console.log("insert_section");
 
     //IMPORTANT Insert DB
     try {
       const response = await insertTodo(data);
-      console.log("api_res", response);
       //Toast Notification
       if (response.status === 201) {
         toast.success("Task Added Successfully");
         //Select TODO API Call
+        setData(""); //reset form value
         fetchTodoData();
-        // setData(null);
       }
     } catch (error) {
       console.log("failed to insert", error);
@@ -83,7 +84,6 @@ function Todo() {
   async function updateAPICall(params) {
     try {
       const response = await updateTodo(updateUniqueId, params);
-      console.log("update_api_response", response);
 
       if (response.status === 200) {
         toast.success(`Update Task Successfully`);
@@ -93,6 +93,7 @@ function Todo() {
         //Set Default Value
         setUpdateDate(false);
         setUpdateUniqueId(null);
+        setData("");
       }
     } catch (error) {
       console.log("delete task name api error", error);
