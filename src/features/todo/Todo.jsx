@@ -9,8 +9,8 @@ function Todo() {
   const [updateData, setUpdateDate] = useState(false);
   const [updateUniqueId, setUpdateUniqueId] = useState(null);
 
-  //Submit todo form
-  async function handelSubmit(e) {
+  //NOTE Submit todo form
+  async function handleSubmit(e) {
     e.preventDefault();
     //If input field is blank
     if (data.length == 0) {
@@ -61,8 +61,8 @@ function Todo() {
     fetchTodoData();
   }, []);
 
-  //Handel Delete Task
-  async function handelDelete(id, task_name) {
+  //handle Delete Task
+  async function handleDelete(id, task_name) {
     try {
       const response = await deleteTodo(id);
       if (response.status === 204) {
@@ -77,8 +77,8 @@ function Todo() {
     }
   }
 
-  //Handel Update Task
-  function handelUpdate(id, task_name) {
+  //handle Update Task
+  function handleUpdate(id, task_name) {
     setData(task_name);
     setUpdateDate(true);
     setUpdateUniqueId(id);
@@ -116,7 +116,7 @@ function Todo() {
           </h1>
 
           {/* Input Form */}
-          <form onSubmit={handelSubmit} className="flex gap-2 mb-8">
+          <form onSubmit={handleSubmit} className="flex gap-2 mb-8">
             <input
               type="text"
               placeholder="What needs to be done?"
@@ -126,6 +126,7 @@ function Todo() {
             />
             <button
               type="submit"
+              disabled={loader}
               className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 active:scale-95 transition-all shadow-md shadow-blue-100"
             >
               {updateData ? "Update" : "Add"}
@@ -155,13 +156,13 @@ function Todo() {
 
                 <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
-                    onClick={() => handelUpdate(ele.id, ele.task_name)}
+                    onClick={() => handleUpdate(ele.id, ele.task_name)}
                     className="text-sm font-medium text-blue-600 hover:bg-blue-100 px-3 py-1 rounded-lg transition"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => handelDelete(ele.id, ele.task_name)}
+                    onClick={() => handleDelete(ele.id, ele.task_name)}
                     className="text-sm font-medium text-red-600 hover:bg-red-100 px-3 py-1 rounded-lg transition"
                   >
                     Delete
