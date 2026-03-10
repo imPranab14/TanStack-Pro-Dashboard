@@ -4,6 +4,7 @@ import Dashboard from "./features/dashboard/page/Dashboard.jsx";
 import SupabaseTable from "./features/supabase-table/page/SupabaseTable.jsx";
 import Todo from "./features/todo/Todo.jsx";
 import Register from "./features/Auth/Register.jsx";
+import Login from "./features/Auth/Login.jsx";
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
           path="/"
           element={
             <>
-              <h1>Login</h1>
+              <h1>Login / Register</h1>
               <Register/>
+              <Login/>
             </>
           }
         />
