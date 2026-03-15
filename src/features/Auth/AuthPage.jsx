@@ -1,11 +1,18 @@
 import React from "react";
 import Register from "./Register";
+import Login from "./Login";
 
 function AuthPage() {
   return (
     <>
-      <h1>Login</h1>
-      <Register />
+      <div >
+     
+          <Login />
+       
+       
+          <Register />
+       
+      </div>
     </>
   );
 }
