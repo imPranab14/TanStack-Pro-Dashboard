@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase/superbase";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Register() {
   const { register, handleSubmit, reset } = useForm();
@@ -11,9 +12,21 @@ export default function Register() {
       email: e.email,
       password: e.password,
     });
+
+    //API Error
+    if (error) {
+      return toast.error(error.message, {
+        position: "top-center",
+      });
+    }
+    //If user register successfully 
+    console.log("Register_User", data);
+    if (data) {
+      return toast.success("User Register Successfully", {
+        position: "top-center",
+      });
+    }
     //NOTE Reset form after submission
-    if (error) console.log("api_error", error);
-    else console.log("User created", data);
     reset();
   };
 
@@ -25,6 +38,7 @@ export default function Register() {
         <input {...register("password")} placeholder="Enter your password" />
         <input type="submit" />
       </form>
+      <Toaster />
     </>
   );
 }
