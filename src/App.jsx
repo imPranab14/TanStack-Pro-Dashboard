@@ -4,6 +4,7 @@ import Dashboard from "./features/dashboard/page/Dashboard.jsx";
 import SupabaseTable from "./features/supabase-table/page/SupabaseTable.jsx";
 import Todo from "./features/todo/Todo.jsx";
 import AuthPage from "./features/Auth/AuthPage.jsx";
+import ProtectedRoute from "./ProtectedRouted.jsx";
 
 function App() {
   return (
@@ -11,7 +12,10 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/user" element={<UserPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* Protected Routed */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
         <Route path="/supabase-table" element={<SupabaseTable />} />
         <Route path="/todo" element={<Todo />} />
         <Route

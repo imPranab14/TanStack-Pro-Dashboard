@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <>
       <form
-        className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl space-y-4"
+        className="max-w-md mx-auto mt-10 p-6 bg-white shadow-sm rounded-xl space-y-4"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-2xl font-semibold text-center text-gray-700">

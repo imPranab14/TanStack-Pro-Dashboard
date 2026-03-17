@@ -5,13 +5,10 @@ import Login from "./Login";
 function AuthPage() {
   return (
     <>
-      <div >
-     
-          <Login />
-       
-       
-          <Register />
-       
+      <div>
+        <Login />
+
+        <Register />
       </div>
     </>
   );

@@ -7,6 +7,7 @@ function Dashboard() {
   async function fetchDashboard() {
     try {
       const response = await dashboardApi();
+      console.log("res",response);
       return response.data || [];
     } catch (error) {
       console.log("Dashboard api fetch api error", error);
@@ -18,12 +19,12 @@ function Dashboard() {
   const { data: dashboardData, isLoading } = useQuery({
     queryKey: ["dashboard"],
     queryFn: fetchDashboard,
-    refetchInterval: 5 * 1000, //Refetch in every 5 sec
+    //refetchInterval: 5 * 1000, //Refetch in every 5 sec
   });
   console.log("data", dashboardData);
   return (
     <>
-      <h1>Dashboard</h1>
+      <h1 className="bg-black text-white p-3">Dashboard</h1>
       {isLoading && <h1>Loading...</h1>}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {!isLoading &&
