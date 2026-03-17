@@ -5,29 +5,11 @@ import SupabaseTable from "./features/supabase-table/page/SupabaseTable.jsx";
 import Todo from "./features/todo/Todo.jsx";
 import AuthPage from "./features/Auth/AuthPage.jsx";
 import ProtectedRoute from "./ProtectedRouted.jsx";
+import AppRouter from "./routes/AppRoutes.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AuthPage />} />
-        <Route path="/user" element={<UserPage />} />
-        {/* Protected Routed */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route path="/supabase-table" element={<SupabaseTable />} />
-        <Route path="/todo" element={<Todo />} />
-        <Route
-          path="*"
-          element={
-            <>
-              <h1>Not Found</h1>
-            </>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <AppRouter/>
   );
 }
 

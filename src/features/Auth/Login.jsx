@@ -2,8 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase/superbase";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (e) => {
@@ -15,17 +18,18 @@ export default function Login() {
 
     //API Error
     if (error) {
-       toast.error(error.message, {
+      toast.error(error.message, {
         position: "top-center",
       });
     }
-    //If Login Successfully 
+    //If Login Successfully
     console.log("Login Successfully", data);
     if (data) {
-       toast.success("Login Successfully", {
+      toast.success("Login Successfully", {
         position: "top-center",
       });
     }
+    navigate("/dashboard");
     //NOTE Reset form after submission
     reset();
   };
