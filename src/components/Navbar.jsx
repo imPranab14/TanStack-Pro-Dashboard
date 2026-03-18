@@ -28,7 +28,7 @@ function Navbar() {
       <div className="flex gap-4">
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/user">User</Link>
-        <Link to="/supabase-table">Table</Link>
+        <Link to="/table">Table</Link>
         <Link to="/todo">Todo</Link>
       </div>
 

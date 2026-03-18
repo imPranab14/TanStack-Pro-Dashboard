@@ -35,7 +35,7 @@ function AppRouter() {
         >
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/user" element={<UserPage />} />
-          <Route path="/supabase-table" element={<SupabaseTable />} />
+          <Route path="/table" element={<SupabaseTable />} />
           <Route path="/todo" element={<Todo />} />
         </Route>
       </Routes>
