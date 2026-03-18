@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase/superbase";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Register() {
   const { register, handleSubmit, reset } = useForm();
@@ -11,20 +12,66 @@ export default function Register() {
       email: e.email,
       password: e.password,
     });
+
+    //API Error
+    if (error) {
+      toast.error(error.message, {
+        position: "top-center",
+      });
+    }
+    //If user register successfully
+    console.log("Register_User", data);
+    if (data) {
+      toast.success("User Register Successfully", {
+        position: "top-center",
+      });
+    }
     //NOTE Reset form after submission
-    if (error) console.log("api_error", error);
-    else console.log("User created", data);
     reset();
   };
 
   return (
     <>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("email")} placeholder="Enter your email" />
-        <input {...register("password")} placeholder="Enter your password" />
-        <input type="submit" />
+      <form
+        className="max-w-md mx-auto mt-10 p-6 bg-white shadow-sm rounded-xl space-y-4"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h2 className="text-2xl font-semibold text-center text-gray-700">
+          Register
+        </h2>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-600">
+            Email
+          </label>
+          <input
+            {...register("email")}
+            placeholder="Enter your email"
+            className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-600">
+            Password
+          </label>
+          <input
+            {...register("password")}
+            type="password"
+            placeholder="Enter your password"
+            className="w-full mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+        >
+          Register
+        </button>
       </form>
+
+      <Toaster />
     </>
   );
 }
