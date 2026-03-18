@@ -35,15 +35,22 @@ function UserPage() {
   //   ],
   // });
 
-  const { data: slowUserData } = useQuery({
+  const { data: slowUserData,isFetched,isLoading,isPending } = useQuery({
     queryKey: ["slowUser"],
     queryFn: fetchSlowResponseUserList,
   });
 
   console.log("results", slowUserData);
 
+
+  //NOTE isLoading : First time loading (no data yet)
+  //NOTE isPending : Query is in progress (any time, including refetch)
+
   return (
     <>
+    {isFetched && <h1>isFetched....</h1>}
+    {isLoading && <h1>isLoading</h1>}
+    {isPending && <h1>isPending Refreshing ....</h1>}
       {/* {isLoading && <h1>Loading...</h1>}
       {!isLoading &&
         data?.map((ele, id) => {
