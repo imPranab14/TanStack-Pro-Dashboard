@@ -18,12 +18,12 @@ export default function Login() {
 
     //API Error
     if (error) {
-      toast.error(error.message, {
+      return toast.error(error.message, {
         position: "top-center",
       });
     }
     //If Login Successfully
-    console.log("Login Successfully", data);
+    //console.log("Login Successfully", data);
     if (data) {
       toast.success("Login Successfully", {
         position: "top-center",
