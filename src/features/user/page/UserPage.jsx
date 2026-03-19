@@ -35,7 +35,7 @@ function UserPage() {
   //   ],
   // });
 
-  const { data: slowUserData,isFetched,isLoading,isPending } = useQuery({
+  const { data: slowUserData,isFetching,isLoading,isPending } = useQuery({
     queryKey: ["slowUser"],
     queryFn: fetchSlowResponseUserList,
   });
@@ -43,14 +43,17 @@ function UserPage() {
   console.log("results", slowUserData);
 
 
-  //NOTE isLoading : First time loading (no data yet)
-  //NOTE isPending : Query is in progress (any time, including refetch)
+  
+// (BEST UX PATTERN)
 
+if(!slowUserData){
+ return <p className="bg-amber-400">Loading Skeleton</p>
+}
   return (
     <>
-    {isFetched && <h1>isFetched....</h1>}
-    {isLoading && <h1>isLoading</h1>}
-    {isPending && <h1>isPending Refreshing ....</h1>}
+    {isFetching && <h1 className="bg-blue-400">SmallSpinner....</h1>}
+    {/* {isLoading && <h1>isLoading</h1>}
+    {isPending && <h1>isPending  ....</h1>} */}
       {/* {isLoading && <h1>Loading...</h1>}
       {!isLoading &&
         data?.map((ele, id) => {

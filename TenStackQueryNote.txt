@@ -1,0 +1,5 @@
+NOTE isLoading : First time loading (no data yet) 
+NOTE isPending : Query is in progress (any time, including refetch) Replaces isLoading in TanStack Query v5
+NOTE isFetching : True for ANY ongoing fetch (including background refetch)
+NOTE fetchStatus: (Network-level state)
+NOTE isError : Proper error handling
