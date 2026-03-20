@@ -7,8 +7,6 @@ async function listOfUser() {
   return response;
 }
 
-
-
 //Postman mock server api
 async function slowResponseUserList() {
   try {
@@ -21,4 +19,33 @@ async function slowResponseUserList() {
     throw error;
   }
 }
-export { listOfUser,slowResponseUserList };
+
+async function slowImageAPI() {
+  try {
+    const response = await axios.get(
+      "https://1707ce55-ccd6-4f31-ae27-dcb920e9d2bd.mock.pstmn.io/slowImage",
+    );
+    return response;
+  } catch (error) {
+    console.log("Slow user response api error", error);
+    throw error;
+  }
+}
+
+//Unsplash Image API
+async function unsplashImageAPI() {
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/image",
+      {
+        responseType: "blob",
+      },
+    );
+    return response;
+  } catch (error) {
+    console.log("Slow user response api error", error);
+    throw error;
+  }
+}
+
+export { listOfUser, slowResponseUserList, slowImageAPI, unsplashImageAPI };
