@@ -1,6 +1,7 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import {
   listOfUser,
+  nodeImageAPI,
   slowImageAPI,
   slowResponseUserList,
   unsplashImageAPI,
@@ -9,6 +10,7 @@ import { useEffect, useState } from "react";
 
 function UserPage() {
   const [image, setImage] = useState(null);
+  const [loader, setLoader] = useState(false);
 
   //NOTE Supabase User Table API Call
   async function fetchUser() {
@@ -53,13 +55,16 @@ function UserPage() {
   //For useEffect()
   async function fetchUnsplashImageUsingUseEffect() {
     try {
-      const response = await unsplashImageAPI();
+      setLoader(true);
+      const response = await nodeImageAPI();
       if (response.status === 200) {
         setImage(response?.data);
       }
     } catch (error) {
       console.log("Image api error", error);
       throw error;
+    } finally {
+      setLoader(false);
     }
   }
   useEffect(() => {
@@ -151,12 +156,13 @@ function UserPage() {
               height="400"
             />
           )}
-
+        </div>
+        <div style={{ display: "grid" }}>
           <h2 className="bg-blue-300">useEffect Api Call</h2>
-          {image &&
-          <img src={URL.createObjectURL(image)} width="600" height="400" />
-          }
-
+          {loader && <h1>Loading....</h1>}
+          {image && (
+            <img src={URL.createObjectURL(image)} width="600" height="400" />
+          )}
         </div>
       </div>
     </>
