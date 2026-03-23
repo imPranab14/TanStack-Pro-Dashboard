@@ -6,11 +6,25 @@ import {
   slowResponseUserList,
   unsplashImageAPI,
 } from "../api/user.api.js";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 function UserPage() {
   const [image, setImage] = useState(null);
   const [loader, setLoader] = useState(false);
+
+//NOTE Runs after the browser paints the UI
+  useEffect(() => {
+  console.log("Runs after paint");
+  }, []);
+  
+
+  //NOTE Runs before the browser paints
+  useLayoutEffect(() => {
+  console.log("Runs before paint");
+  }, []);
+
+
+
 
   //NOTE Supabase User Table API Call
   async function fetchUser() {
