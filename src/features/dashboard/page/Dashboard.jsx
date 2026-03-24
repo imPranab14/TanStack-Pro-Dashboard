@@ -1,13 +1,38 @@
 import React from "react";
 import dashboardApi from "../api/dashboard.api.js";
 import { useQuery } from "@tanstack/react-query";
+import { motion, useScroll } from "motion/react";
 
-function Dashboard() {
+export default function Dashboard() {
+  const { scrollYProgress } = useScroll();
+
+  return (
+    <>
+      <motion.div
+        id="scroll-indicator"
+        style={{
+          scaleX: scrollYProgress,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 5,
+          originX: 0,
+          backgroundColor: "#ff0088",
+          zIndex:100
+        }}
+      />
+      <DashboardContent />
+    </>
+  );
+}
+
+function DashboardContent() {
   //Dashboard API Function
   async function fetchDashboard() {
     try {
       const response = await dashboardApi();
-      console.log("res",response);
+      console.log("res", response);
       return response.data || [];
     } catch (error) {
       console.log("Dashboard api fetch api error", error);
@@ -114,4 +139,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+//export default Dashboard;
