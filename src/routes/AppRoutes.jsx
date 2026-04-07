@@ -7,6 +7,7 @@ import ProtectedRoute from "../ProtectedRouted";
 import UserPage from "../features/user/page/UserPage.jsx";
 import AppLayout from "../layout/AppLayout.jsx";
 import AuthLayout from "../layout/AuthLayout.jsx";
+import Tailwind from "@/features/tailwind/Tailwind.jsx";
 
 function AppRouter() {
   return (
@@ -15,6 +16,7 @@ function AppRouter() {
         {/* Not Protected Routed */}
         <Route element={<AuthLayout />}>
           <Route path="/" element={<AuthPage />} />
+          <Route path="/tailwind" element={<Tailwind />} />
           <Route
             path="*"
             element={
