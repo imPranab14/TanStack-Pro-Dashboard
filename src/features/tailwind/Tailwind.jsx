@@ -25,6 +25,13 @@ function Tailwind() {
           <a>About</a>
         </div>
       </div>
+
+      {/* //NOTE Grid is a 2D layout system */}
+      <div class="grid grid-cols-3 gap-4">
+        <div className="bg-amber-300">1</div>
+        <div className="bg-green-300">2</div>
+        <div className="bg-blue-300">3</div>
+      </div>
     </>
   );
 }
