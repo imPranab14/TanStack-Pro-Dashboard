@@ -33,7 +33,6 @@ function Tailwind() {
         <div className="bg-blue-300">3</div>
       </div> */}
 
-
       {/* Response Card Design */}
 
       {/* Design for small screens first
@@ -47,13 +46,18 @@ function Tailwind() {
       {/* <div class="text-sm md:text-lg lg:text-xl">
          Responsive Text
       </div> */}
-      <div className="grid grid-cols-3 gap-1  sm:grid-cols-1">
-        <div className="bg-red-300 p-3">1</div>
-        <div className="bg-blue-300 p-3">2</div>
+      <div className="grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="bg-red-300 hover:bg-blue-400 p-3">Hover Section</div>
+        <div className="bg-blue-300 active:bg-green-300 p-3">
+          Active Section
+        </div>
         <div className="bg-red-300 p-3">3</div>
         <div className="bg-blue-300 p-3">4</div>
         <div className="bg-red-300 p-3">4</div>
       </div>
+
+      {/* Dark Mode */}
+      <div class="bg-green-900 text-black dark:bg-black dark:text-white">Hello</div>
     </>
   );
 }
