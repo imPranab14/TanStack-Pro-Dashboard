@@ -8,6 +8,7 @@ import UserPage from "../features/user/page/UserPage.jsx";
 import AppLayout from "../layout/AppLayout.jsx";
 import AuthLayout from "../layout/AuthLayout.jsx";
 import Tailwind from "@/features/tailwind/Tailwind.jsx";
+import ShiftCalculation from "@/practices/ShiftCalculation.jsx";
 
 function AppRouter() {
   return (
@@ -17,6 +18,7 @@ function AppRouter() {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<AuthPage />} />
           <Route path="/tailwind" element={<Tailwind />} />
+          <Route path="/practices" element={<ShiftCalculation />} />
           <Route
             path="*"
             element={
